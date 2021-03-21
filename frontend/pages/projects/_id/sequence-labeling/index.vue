@@ -11,6 +11,7 @@
         class="d-none d-sm-block"
         @click:clear-label="clear"
         @click:review="approve"
+        @label-updated="reloadLabel"
       />
       <toolbar-mobile
         :total="docs.count"
@@ -142,6 +143,9 @@ export default {
       } catch (e) {
         console.log(e.response.data.detail)
       }
+    },
+    async reloadLabel(e){
+    this.labels = await this.$services.label.list(this.projectId)
     },
 
     async approve() {
