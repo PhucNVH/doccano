@@ -164,7 +164,7 @@ class Label(models.Model):
         (c, c) for c in string.digits + string.ascii_lowercase
     )
 
-    text = models.CharField(max_length=100)
+    text = models.CharField(max_length=255)
     prefix_key = models.CharField(max_length=10, blank=True, null=True, choices=PREFIX_KEYS)
     suffix_key = models.CharField(max_length=1, blank=True, null=True, choices=SUFFIX_KEYS)
     project = models.ForeignKey(Project, related_name='labels', on_delete=models.CASCADE)
@@ -180,12 +180,6 @@ class Label(models.Model):
         # Don't allow shortcut key not to have a suffix key.
         if self.prefix_key and not self.suffix_key:
             raise ValidationError('Shortcut key may not have a suffix key.')
-
-        # each shortcut (prefix key + suffix key) can only be assigned to one label
-        if self.suffix_key or self.prefix_key:
-            other_labels = self.project.labels.exclude(id=self.id)
-            if other_labels.filter(suffix_key=self.suffix_key, prefix_key=self.prefix_key).exists():
-                raise ValidationError('A label with this shortcut already exists in the project')
 
         super().clean()
 

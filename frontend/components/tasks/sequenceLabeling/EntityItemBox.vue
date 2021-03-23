@@ -181,23 +181,12 @@ export default {
       this.end = this.start + [...range.toString()].length
     },
     validateSpan() {
-      if ((typeof this.start === 'undefined') || (typeof this.end === 'undefined')) {
-        return false
-      }
-      if (this.start === this.end) {
-        return false
-      }
-      for (const entity of this.entities) {
-        if ((entity.startOffset <= this.start) && (this.start < entity.endOffset)) {
-          return false
-        }
-        if ((entity.startOffset < this.end) && (this.end <= entity.endOffset)) {
-          return false
-        }
-        if ((this.start < entity.startOffset) && (entity.endOffset < this.end)) {
-          return false
-        }
-      }
+      // if ((typeof this.start === 'undefined') || (typeof this.end === 'undefined')) {
+      //   return false
+      // }
+      // if (this.start === this.end) {
+      //   return false
+      // }
       return true
     },
     open(e) {

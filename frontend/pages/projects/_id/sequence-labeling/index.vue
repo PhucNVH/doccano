@@ -20,7 +20,7 @@
     </template>
     <template v-slot:content>
       <v-card>
-        <v-card-text class="title">
+        <v-card-text class="title">t
           <entity-item-box
             :labels="labels"
             :text="doc.text"
