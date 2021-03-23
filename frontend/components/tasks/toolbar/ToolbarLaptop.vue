@@ -4,7 +4,7 @@
     dense
     flat
   >
-    <v-row no-gutters>
+    <v-row no-gutters class="flex-col">
       <v-btn-toggle>
         <button-review
           v-if="showApproveButton"
@@ -40,26 +40,6 @@
         />
         </v-dialog>
 
-        <button-auto-labeling
-          @click:auto="dialogAutoLabeling=true"
-        />
-        <v-dialog v-model="dialogAutoLabeling">
-          <form-auto-labeling
-            :is-enabled="enableAutoLabeling"
-            :error-message="errorMessage"
-            @click:cancel="dialogAutoLabeling=false"
-            @input="updateAutoLabeling"
-          />
-        </v-dialog>
-
-        <button-clear
-          @click:clear="dialogClear=true"
-        />
-        <v-dialog v-model="dialogClear">
-          <form-clear-label
-            @click:ok="$emit('click:clear-label');dialogClear=false"
-            @click:cancel="dialogClear=false"
-          />
         </v-dialog>
       </v-btn-toggle>
       <v-spacer />
@@ -78,31 +58,22 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import LabelList from '@/components/label/LabelList.vue'
-import ButtonAutoLabeling from './buttons/ButtonAutoLabeling.vue'
-import ButtonClear from './buttons/ButtonClear.vue'
 import ButtonComment from './buttons/ButtonComment.vue'
 import ButtonFilter from './buttons/ButtonFilter.vue'
 import ButtonGuideline from './buttons/ButtonGuideline.vue'
 import ButtonPagination from './buttons/ButtonPagination.vue'
 import ButtonReview from './buttons/ButtonReview.vue'
-import FormAutoLabeling from './forms/FormAutoLabeling.vue'
-import FormClearLabel from './forms/FormClearLabel.vue'
 import FormCreate from './forms/FormCreate.vue'
 import FormGuideline from './forms/FormGuideline.vue'
 import { LabelDTO } from '~/services/application/label/labelData'
 
 export default Vue.extend({
   components: {
-    ButtonAutoLabeling,
-    ButtonClear,
     ButtonComment,
     ButtonFilter,
     ButtonGuideline,
     ButtonPagination,
     ButtonReview,
-    FormAutoLabeling,
-    FormClearLabel,
     FormCreate,
     FormGuideline
   },
@@ -264,6 +235,15 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+.toolbar-control{
+position: fixed;
+bottom:10%;
+right:0;
+z-index: 9999;
+}
+.flex-col{
+  flex-direction: column;
+}
 .toolbar-control >>> .v-toolbar__content {
   padding: 0px !important;
 }
